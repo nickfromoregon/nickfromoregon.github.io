@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nick Walton — McMinnville, Oregon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E4;
+    --ink: #1A1208;
+    --espresso: #2C1A0E;
+    --terra: #B85C38;
+    --forest: #2C4A3E;
+    --muted: #8A7F72;
+    --rule: #D4C9B8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem; transition: background 0.4s, color 0.4s;
+  }
+  nav.light { background: transparent; color: var(--cream); }
+  nav.dark { background: var(--cream); color: var(--ink); border-bottom: 1px solid var(--rule); }
+  .nav-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.8rem;
+    letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: inherit;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Syne Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none; color: inherit; opacity: 0.75; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; background: var(--forest);
+    display: grid; grid-template-rows: 1fr auto;
+    position: relative; overflow: hidden;
+  }
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+  .hero-ring {
+    position: absolute; border-radius: 50%; top: 50%; right: -100px;
+    transform: translateY(-50%); animation: breathe 8s ease-in-out infinite;
+  }
+  .hero-ring:nth-child(2) { width:400px; height:400px; border:1px solid rgba(245,240,228,0.04); animation-delay:-3s; }
+  .hero-ring:nth-child(3) { width:600px; height:600px; border:1px solid rgba(245,240,228,0.06); }
+  .hero-ring:nth-child(4) { width:800px; height:800px; border:1px solid rgba(184,92,56,0.08); animation-delay:-5s; }
+  @keyframes breathe {
+    0%,100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.04); }
+  }
+  .hero-content {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem; max-width: 900px; position: relative; z-index: 2; margin-top: 8rem;
+  }
+  .hero-chapter {
+    font-family: 'Syne Mono', monospace; font-size: 0.72rem; letter-spacing: 0.25em;
+    color: var(--terra); text-transform: uppercase; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+  h1.hero-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(4rem, 10vw, 9rem); line-height: 0.92;
+    color: var(--cream); letter-spacing: -0.02em; margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+  h1.hero-name span { display: block; color: var(--terra); }
+  .hero-tagline {
+    font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; font-weight: 300;
+    color: rgba(245,240,228,0.7); max-width: 480px; line-height: 1.5;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+  .hero-footer {
+    padding: 2rem 3rem; border-top: 1px solid rgba(245,240,228,0.12);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 2; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+  .hero-location {
+    font-family: 'Syne Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.15em; color: rgba(245,240,228,0.45); text-transform: uppercase;
+  }
+  .hero-scroll {
+    font-family: 'Syne Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em;
+    color: rgba(245,240,228,0.45); text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem; text-decoration: none;
+  }
+  .hero-scroll::after { content: ''; display: block; width: 40px; height: 1px; background: var(--terra); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 3rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .chapter-marker { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3.5rem; }
+  .chapter-number {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem;
+    letter-spacing: 0.2em; color: var(--terra); text-transform: uppercase;
+  }
+  .chapter-rule { flex: 1; height: 1px; background: var(--rule); max-width: 60px; }
+  h2.section-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 1.5rem;
+  }
+  .section-intro {
+    font-size: 1.15rem; font-style: italic; font-weight: 300;
+    color: var(--muted); max-width: 540px; margin-bottom: 4rem;
+  }
+
+  /* WORK */
+  #work { background: var(--cream); }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--rule); }
+
+  .work-card {
+    background: var(--cream); padding: 3rem;
+    transition: background 0.3s; text-decoration: none; color: inherit; display: block;
+  }
+  .work-card:hover { background: #EDE8DB; }
+  .work-card:hover .card-arrow { transform: translate(4px, -4px); }
+
+  .work-card-featured {
+    grid-column: 1 / -1; background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: end; padding: 3rem;
+    transition: background 0.3s; text-decoration: none; color: inherit;
+  }
+  .work-card-featured:hover { background: #EDE8DB; }
+  .work-card-featured:hover .card-arrow { transform: translate(4px, -4px); }
+
+  .card-num {
+    font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em;
+    color: var(--terra); text-transform: uppercase; margin-bottom: 1.5rem; display: block;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.4rem; letter-spacing: -0.01em; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .work-card-featured .card-title { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+  .card-desc { font-size: 0.95rem; line-height: 1.65; color: var(--muted); margin-bottom: 2rem; }
+  .card-arrow { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: var(--terra); transition: transform 0.25s ease; display: inline-block; }
+
+  /* VALUES */
+  #values { background: var(--espresso); color: var(--cream); }
+  #values .chapter-number { color: var(--terra); }
+  #values .chapter-rule { background: rgba(245,240,228,0.15); }
+  #values .section-intro { color: rgba(245,240,228,0.55); }
+  .values-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .pullquote { border-left: 2px solid var(--terra); padding-left: 2rem; margin: 2.5rem 0; }
+  .pullquote p { font-size: 1.3rem; font-style: italic; font-weight: 300; line-height: 1.5; color: rgba(245,240,228,0.85); }
+  .pullquote cite {
+    display: block; font-family: 'Syne Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra);
+    margin-top: 1rem; font-style: normal;
+  }
+  .episode-list { list-style: none; border-top: 1px solid rgba(245,240,228,0.1); }
+  .episode-list li {
+    border-bottom: 1px solid rgba(245,240,228,0.1); padding: 1.1rem 0;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  }
+  .ep-title { font-size: 1rem; color: rgba(245,240,228,0.75); }
+  .ep-num { font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--terra); flex-shrink: 0; }
+  .values-cta {
+    margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 1rem;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    color: var(--cream); border: 1px solid rgba(245,240,228,0.25);
+    padding: 0.9rem 1.8rem; transition: all 0.25s;
+  }
+  .values-cta:hover { background: var(--terra); border-color: var(--terra); }
+  .values-cta span { transition: transform 0.25s; }
+  .values-cta:hover span { transform: translateX(4px); }
+  .listen-box { margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(245,240,228,0.1); }
+  .listen-label {
+    font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em;
+    color: var(--terra); text-transform: uppercase; margin-bottom: 0.75rem; display: block;
+  }
+  .listen-platforms { color: rgba(245,240,228,0.6); font-size: 0.95rem; line-height: 2; }
+
+  /* ABOUT */
+  #about { background: var(--cream); }
+  .about-layout { display: grid; grid-template-columns: 5fr 4fr; gap: 5rem; align-items: start; }
+  .about-text p { margin-bottom: 1.4rem; font-size: 1.05rem; line-height: 1.75; color: #3A2E22; }
+  .about-text p:first-child { font-size: 1.25rem; font-style: italic; font-weight: 300; color: var(--ink); }
+  .sidebar-block { margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+  .sidebar-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sidebar-label {
+    font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em;
+    color: var(--terra); text-transform: uppercase; margin-bottom: 0.75rem; display: block;
+  }
+  .sidebar-value { font-size: 1rem; color: var(--muted); line-height: 1.6; }
+
+  /* CONTACT */
+  #contact { background: var(--forest); color: var(--cream); }
+  #contact .chapter-number { color: var(--terra); }
+  #contact .chapter-rule { background: rgba(245,240,228,0.15); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-intro { font-size: 1.15rem; font-weight: 300; line-height: 1.75; color: rgba(245,240,228,0.7); margin-bottom: 3rem; }
+  .contact-item {
+    padding: 1.5rem 0; border-bottom: 1px solid rgba(245,240,228,0.1);
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .contact-item:first-of-type { border-top: 1px solid rgba(245,240,228,0.1); }
+  .contact-label {
+    font-family: 'Syne Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--terra); text-transform: uppercase;
+  }
+  .contact-value { font-size: 1.1rem; color: rgba(245,240,228,0.85); text-decoration: none; transition: color 0.2s; }
+  .contact-value:hover { color: var(--terra); }
+  .contact-note { font-size: 1rem; font-style: italic; font-weight: 300; color: rgba(245,240,228,0.4); margin-top: 2.5rem; line-height: 1.65; }
+  .find-label {
+    font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em;
+    color: var(--terra); text-transform: uppercase; margin-bottom: 1.5rem; display: block;
+  }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: var(--cream); padding: 5rem 3rem 3rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 4rem; border-bottom: 1px solid rgba(245,240,228,0.1);
+    margin-bottom: 3rem; gap: 3rem; flex-wrap: wrap;
+  }
+  .footer-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.02em; line-height: 1; }
+  .footer-name em {
+    display: block; font-family: 'Crimson Pro', serif; font-style: italic; font-weight: 300;
+    font-size: clamp(1rem, 2vw, 1.3rem); color: rgba(245,240,228,0.45); letter-spacing: 0; margin-top: 0.5rem;
+  }
+  .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 3rem; }
+  .footer-links a { font-size: 1rem; color: rgba(245,240,228,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--terra); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-family: 'Syne Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: rgba(245,240,228,0.25); text-transform: uppercase; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .work-card-featured { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .values-layout, .about-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-content { padding: 0 1.5rem 3rem; }
+    .hero-footer { padding: 1.5rem; }
+    footer { padding: 4rem 1.5rem 2rem; }
+    .footer-top { flex-direction: column; }
+    .footer-links { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="light" id="main-nav">
+  <a href="#" class="nav-name">Nick Walton</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#values">The Values Sort</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-content">
+    <p class="hero-chapter">McMinnville, Oregon</p>
+    <h1 class="hero-name">Nick<br><span>Walton.</span></h1>
+    <p class="hero-tagline">Roaster. Egg man. Lay monastic. Forty-something who can't stop thinking about the invisible scripts that run people's lives.</p>
+  </div>
+  <div class="hero-footer">
+    <span class="hero-location">45.2°N &nbsp;·&nbsp; Yamhill County &nbsp;·&nbsp; Since 2008</span>
+    <a href="#work" class="hero-scroll">Scroll</a>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-inner">
+    <div class="chapter-marker reveal">
+      <span class="chapter-number">Chapter One</span>
+      <div class="chapter-rule"></div>
+    </div>
+    <h2 class="section-title reveal">The Work</h2>
+    <p class="section-intro reveal">A few different things, held together loosely by place and curiosity.</p>
+
+    <div class="work-grid">
+      <a href="#values" class="work-card work-card-featured reveal">
+        <div>
+          <span class="card-num">01 &nbsp;·&nbsp; Essays &amp; Podcast</span>
+          <div class="card-title">The Values Sort</div>
+        </div>
+        <div>
+          <p class="card-desc">A deck of 64 values. You sort them by how much they matter. What comes out is harder to argue with than you'd expect. Now a Substack essay series and a podcast — one value at a time, every few days, read aloud from a teardrop camper in the yard.</p>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://flagandwirecoffee.com" target="_blank" class="work-card reveal reveal-delay-1">
+        <span class="card-num">02 &nbsp;·&nbsp; Café &amp; Roastery</span>
+        <div class="card-title">Flag &amp; Wire Coffee</div>
+        <p class="card-desc">Open in McMinnville since 2008. The place where most of these conversations started — over a cup, across a counter, with whoever showed up that morning.</p>
+        <span class="card-arrow">→</span>
+      </a>
+
+      <a href="https://chucksdozens.com" target="_blank" class="work-card reveal reveal-delay-2">
+        <span class="card-num">03 &nbsp;·&nbsp; Pasture-Raised Eggs</span>
+        <div class="card-title">Chuck's Dozens</div>
+        <p class="card-desc">Eggs from a genuinely varied flock on acreage outside McMinnville. The shells come in colors. The yolks run deep. The chickens have opinions. Named after the dog.</p>
+        <span class="card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SORT -->
+<section id="values">
+  <div class="section-inner">
+    <div class="chapter-marker reveal">
+      <span class="chapter-number">Chapter Two</span>
+      <div class="chapter-rule"></div>
+    </div>
+    <h2 class="section-title reveal">The Values Sort</h2>
+    <p class="section-intro reveal">A card-sorting exercise that became an essay project that became a podcast. It started with a deck my therapist introduced me to.</p>
+
+    <div class="values-layout">
+      <div class="reveal">
+        <p style="color:rgba(245,240,228,0.75);font-size:1.05rem;line-height:1.75;">The exercise comes from Shalom Schwartz's Theory of Basic Human Values. I've now done it with more than 200 people — in coffee shops, around kitchen tables, at retreats. The conversation it starts is always worth having.</p>
+        <div class="pullquote">
+          <p>"We say we value one thing and then spend our Tuesdays doing something else entirely. The deck just makes that visible."</p>
+          <cite>— From the essay on Honesty</cite>
+        </div>
+        <p style="color:rgba(245,240,228,0.75);font-size:1.05rem;line-height:1.75;margin-bottom:2.5rem;">I wrote 66 essays — one per value, roughly 72,000 words in a single month. Now I'm reading them out loud, in order, from a teardrop camper in the yard. Season 2 will be conversations.</p>
+        <a href="https://nickfromoregon.substack.com" target="_blank" class="values-cta">Subscribe on Substack <span>→</span></a>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <p style="font-family:'Syne Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--terra);text-transform:uppercase;margin-bottom:1.5rem;">Recent Episodes</p>
+        <ul class="episode-list">
+          <li><span class="ep-title">True Friendship</span><span class="ep-num">#38</span></li>
+          <li><span class="ep-title">Responsibility</span><span class="ep-num">#37</span></li>
+          <li><span class="ep-title">Loyalty</span><span class="ep-num">#36</span></li>
+          <li><span class="ep-title">Forgiveness</span><span class="ep-num">#35</span></li>
+          <li><span class="ep-title">Honesty</span><span class="ep-num">#34</span></li>
+          <li><span class="ep-title">Helpfulness</span><span class="ep-num">#33</span></li>
+          <li><span class="ep-title">Inner Harmony</span><span class="ep-num">#32</span></li>
+          <li><span class="ep-title">A World at Peace</span><span class="ep-num">#31</span></li>
+          <li><span class="ep-title">Equality</span><span class="ep-num">#30</span></li>
+          <li><span class="ep-title">Wisdom</span><span class="ep-num">#29</span></li>
+        </ul>
+        <div class="listen-box">
+          <span class="listen-label">Listen on</span>
+          <p class="listen-platforms">Apple Podcasts &nbsp;·&nbsp; Spotify<br>Overcast &nbsp;·&nbsp; Substack</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="chapter-marker reveal">
+      <span class="chapter-number">Chapter Three</span>
+      <div class="chapter-rule"></div>
+    </div>
+    <h2 class="section-title reveal">About Nick</h2>
+    <div class="about-layout">
+      <div class="about-text reveal">
+        <p>I've lived in McMinnville long enough to know that a place shapes you in ways that don't announce themselves — through the soil composition, the angle of winter light, the particular way people around here talk about work.</p>
+        <p>I opened Flag &amp; Wire Coffee in 2008, which means I've made coffee for McMinnville through a recession, a pandemic, and whatever this is. The café taught me things about community and impermanence that I'm still sorting through.</p>
+        <p>I've been doing a values-based card-sorting exercise with people for years. It surfaces something true, quickly, without requiring anyone to be more vulnerable than they're ready to be. That practice is the root of everything I write.</p>
+        <p>I'm a member of a lay monastic order with my wife Kim. We have three teenagers and a five-year-old. We live on acreage with chickens, a yellow lab named Charles "Chucklet Puddin" PotPie Walton, and a teardrop camper I record podcasts in.</p>
+        <p>I follow a Jesus-flavored spiritual path outside institutional religion and have a forestry background that keeps showing up in my metaphors. I can't stop thinking about the invisible scripts that run people's lives.</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="sidebar-block">
+          <span class="sidebar-label">Location</span>
+          <span class="sidebar-value">McMinnville, Oregon<br>Yamhill County</span>
+        </div>
+        <div class="sidebar-block">
+          <span class="sidebar-label">Top Values</span>
+          <span class="sidebar-value">Protection of the Environment<br>Wisdom · Helpfulness<br>A World at Peace · True Friendship</span>
+        </div>
+        <div class="sidebar-block">
+          <span class="sidebar-label">Current Projects</span>
+          <span class="sidebar-value">The Values Sort<br>Flag &amp; Wire Coffee<br>Chuck's Dozens</span>
+        </div>
+        <div class="sidebar-block">
+          <span class="sidebar-label">Background</span>
+          <span class="sidebar-value">Forestry · Coffee Roasting<br>Lay Monastic Order<br>McMinnville Chamber of Commerce</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="chapter-marker reveal">
+      <span class="chapter-number">Chapter Four</span>
+      <div class="chapter-rule"></div>
+    </div>
+    <h2 class="section-title reveal" style="color:var(--cream);">Get in Touch</h2>
+    <div class="contact-layout">
+      <div class="reveal">
+        <p class="contact-intro">I'm a real person in a real town. If something here resonated — or you want to talk about values, coffee, or eggs — feel free to reach out.</p>
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a href="mailto:nickfromoregon@gmail.com" class="contact-value">nickfromoregon@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Instagram</span>
+          <a href="https://instagram.com/nickwalton" target="_blank" class="contact-value">@nickwalton</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Substack</span>
+          <a href="https://nickfromoregon.substack.com" target="_blank" class="contact-value">nickfromoregon.substack.com</a>
+        </div>
+        <p class="contact-note">I read everything. I'm slow to reply. Bear with me.</p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <span class="find-label">Find the work</span>
+        <div class="contact-item">
+          <span class="contact-label">The Values Sort</span>
+          <a href="https://nickfromoregon.substack.com" target="_blank" class="contact-value">nickfromoregon.substack.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Flag &amp; Wire Coffee</span>
+          <a href="https://flagandwirecoffee.com" target="_blank" class="contact-value">flagandwirecoffee.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Chuck's Dozens</span>
+          <a href="https://chucksdozens.com" target="_blank" class="contact-value">chucksdozens.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-name">
+        Nick Walton
+        <em>Nick From Oregon</em>
+      </div>
+      <div class="footer-links">
+        <a href="#work">Work</a>
+        <a href="https://nickfromoregon.substack.com" target="_blank">Substack</a>
+        <a href="#about">About</a>
+        <a href="https://flagandwirecoffee.com" target="_blank">Flag &amp; Wire</a>
+        <a href="#contact">Contact</a>
+        <a href="https://chucksdozens.com" target="_blank">Chuck's Dozens</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Nick Walton &nbsp;·&nbsp; McMinnville, Oregon</span>
+      <span class="footer-copy">nickfromoregon.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  new IntersectionObserver(([e]) => {
+    nav.className = e.isIntersecting ? 'light' : 'dark';
+  }, { threshold: 0.1 }).observe(document.getElementById('hero'));
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) el.classList.add('visible');
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }).observe(el);
+  });
+</script>
+</body>
+</html>
